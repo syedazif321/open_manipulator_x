@@ -205,6 +205,40 @@
 
 
 
+    <joint name="${prefix}gripper_right_joint" type="fixed">
+      <parent link="${prefix}link5"/>
+      <child link="${prefix}gripper_right_link"/>
+      <origin xyz="0.09 0.0 0.0325" rpy="0 0 0 "/>
+    </joint>
+
+    <link name="${prefix}gripper_right_link">
+      <visual>
+        <origin xyz="0.0 0.0 0.0" rpy="-1.5708 0 -1.5708"/>
+        <geometry>
+          <mesh filename="${meshes_file_direction}/kkk.stl"/>
+        </geometry>
+        <material name="grey"/>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+        <geometry>
+          <mesh filename="${meshes_file_direction}/kkk.stl"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 1.5708 0" />
+        <mass value="1.0e-03" />
+        <inertia ixx="1.0e-06" ixy="0.0" ixz="0.0"
+                 iyy="1.0e-06" iyz="0.0"
+                 izz="1.0e-06" />
+      </inertial>
+    </link>
+
+
+
+
     <joint name="${prefix}end_effector_joint" type="fixed">
       <parent link="${prefix}link5"/>
       <child link="${prefix}end_effector_link"/>
