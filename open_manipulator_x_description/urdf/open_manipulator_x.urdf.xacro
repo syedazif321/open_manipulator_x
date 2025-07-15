@@ -202,16 +202,17 @@
                  izz="1.0e-06" />
       </inertial>
     </link>
+    <xacro:intel_d435_camera prefix="${prefix}" parent_link="link5"/>
 
 
-
+<!-- 
     <joint name="${prefix}gripper_right_joint" type="fixed">
       <parent link="${prefix}link5"/>
-      <child link="${prefix}gripper_right_link"/>
+      <child link="${prefix}camera_link"/>
       <origin xyz="0.09 0.0 0.0325" rpy="0 0 0 "/>
     </joint>
 
-    <link name="${prefix}gripper_right_link">
+    <link name="${prefix}camera_link">
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="-1.5708 0 -1.5708"/>
         <geometry>
@@ -234,18 +235,18 @@
                  iyy="1.0e-06" iyz="0.0"
                  izz="1.0e-06" />
       </inertial>
-    </link>
+    </link> -->
 
 
 
 
-    <joint name="${prefix}end_effector_joint" type="fixed">
+    <!-- <joint name="${prefix}end_effector_joint" type="fixed">
       <parent link="${prefix}link5"/>
       <child link="${prefix}end_effector_link"/>
       <origin xyz="0.123 0.0 0.0" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
-    <link name="${prefix}end_effector_link">
+    <!-- <link name="${prefix}end_effector_link"> -->
       <!-- <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
@@ -253,7 +254,7 @@
         </geometry>
         <material name="red"/>
        </visual> -->
-    </link>
+    <!-- </link> -->
 
   </xacro:macro>
 

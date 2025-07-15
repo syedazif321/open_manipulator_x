@@ -18,6 +18,10 @@
 
   <xacro:include filename="$(find open_manipulator_x_description)/ros2_control/open_manipulator_x_system.ros2_control.xacro" />
 
+  <xacro:include filename="$(find open_manipulator_x_description)/urdf/camera_module.urdf.xacro"/>
+
+
+
   <xacro:open_manipulator_x prefix="$(arg prefix)" />
   <xacro:open_manipulator_x_gazebo prefix="$(arg prefix)" />
   <xacro:open_manipulator_x_system

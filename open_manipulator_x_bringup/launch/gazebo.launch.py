@@ -54,7 +54,7 @@ def generate_launch_description():
             [
                 FindPackageShare('open_manipulator_x_bringup'),
                 'worlds',
-                'empty_world.model'
+                'table.world'
             ]
         )
     )
