@@ -34,8 +34,6 @@
       <origin xyz="0.09 0.0 0.0325" rpy="0 0 0"/>
     </joint>
 
-    <!-- Gazebo Plugins -->
-
     <!-- RGB Camera -->
     <gazebo reference="${prefix}camera_link">
       <sensor name="d435_rgb" type="camera">
@@ -54,11 +52,11 @@
         </camera>
         <plugin name="${prefix}d435_rgb_plugin" filename="libgazebo_ros_camera.so">
           <ros>
-            <namespace>${prefix}/d435</namespace>
+            <namespace>${prefix}/d435/rgb</namespace>
           </ros>
-          <camera_name>rgb_camera</camera_name>
-          <image_topic_name>rgb/image_raw</image_topic_name>
-          <camera_info_topic_name>rgb/camera_info</camera_info_topic_name>
+          <camera_name>rgb</camera_name>
+          <image_topic_name>image_raw</image_topic_name>
+          <camera_info_topic_name>camera_info</camera_info_topic_name>
           <frame_name>${prefix}camera_link</frame_name>
         </plugin>
       </sensor>
@@ -82,11 +80,11 @@
         </camera>
         <plugin name="${prefix}d435_infra1_plugin" filename="libgazebo_ros_camera.so">
           <ros>
-            <namespace>${prefix}/d435</namespace>
+            <namespace>${prefix}/d435/infra1</namespace>
           </ros>
-          <camera_name>infra1_camera</camera_name>
-          <image_topic_name>infra1/image_raw</image_topic_name>
-          <camera_info_topic_name>infra1/camera_info</camera_info_topic_name>
+          <camera_name>infra1</camera_name>
+          <image_topic_name>image_raw</image_topic_name>
+          <camera_info_topic_name>camera_info</camera_info_topic_name>
           <frame_name>${prefix}camera_link</frame_name>
         </plugin>
       </sensor>
@@ -107,17 +105,17 @@
         </camera>
         <plugin name="${prefix}d435_infra2_plugin" filename="libgazebo_ros_camera.so">
           <ros>
-            <namespace>${prefix}/d435</namespace>
+            <namespace>${prefix}/d435/infra2</namespace>
           </ros>
-          <camera_name>infra2_camera</camera_name>
-          <image_topic_name>infra2/image_raw</image_topic_name>
-          <camera_info_topic_name>infra2/camera_info</camera_info_topic_name>
+          <camera_name>infra2</camera_name>
+          <image_topic_name>image_raw</image_topic_name>
+          <camera_info_topic_name>camera_info</camera_info_topic_name>
           <frame_name>${prefix}camera_link</frame_name>
         </plugin>
       </sensor>
     </gazebo>
 
-    <!-- Depth Camera with Depth Image and Point Cloud -->
+    <!-- Depth and Point Cloud Combined -->
     <gazebo reference="${prefix}camera_link">
       <sensor name="d435_depth" type="depth">
         <update_rate>30.0</update_rate>
@@ -132,20 +130,21 @@
             <near>0.1</near>
             <far>10.0</far>
           </clip>
+          <depth_camera>
+            <output>depth_and_point_cloud</output> <!-- THIS IS IMPORTANT -->
+          </depth_camera>
         </camera>
 
-        <!-- Depth Image Plugin -->
-        <plugin name="${prefix}d435_depth_plugin" filename="libgazebo_ros_depth_camera.so">
+        <plugin name="${prefix}d435_depth_plugin" filename="libgazebo_ros_camera.so">
           <ros>
-            <namespace>${prefix}/d435</namespace>
+            <namespace>${prefix}/d435/depth</namespace>
           </ros>
-          <camera_name>depth_camera</camera_name>
-          <image_topic_name>depth/image_raw</image_topic_name>
-          <camera_info_topic_name>depth/camera_info</camera_info_topic_name>
+          <camera_name>depth</camera_name>
+          <image_topic_name>image_raw</image_topic_name>
+          <camera_info_topic_name>camera_info</camera_info_topic_name>
           <frame_name>${prefix}camera_link</frame_name>
         </plugin>
 
-        <!-- Point Cloud Plugin -->
         <plugin name="${prefix}d435_pointcloud_plugin" filename="libgazebo_ros_point_cloud.so">
           <ros>
             <namespace>${prefix}/d435</namespace>

@@ -18,7 +18,9 @@
 
   <xacro:include filename="$(find open_manipulator_x_description)/ros2_control/open_manipulator_x_system.ros2_control.xacro" />
 
-  <xacro:include filename="$(find open_manipulator_x_description)/urdf/camera_module.urdf.xacro"/>
+  <xacro:include filename="$(find open_manipulator_x_description)/urdf/camera_module.urdf.xacro" />
+  <!-- <xacro:intel_d435_camera_combined prefix="" parent_link="link5"/> -->
+
 
 
 

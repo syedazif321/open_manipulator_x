@@ -202,7 +202,7 @@
                  izz="1.0e-06" />
       </inertial>
     </link>
-    <xacro:intel_d435_camera prefix="${prefix}" parent_link="link5"/>
+    <xacro:intel_d435_camera prefix="" parent_link="link5"/>
 
 
 <!-- 
