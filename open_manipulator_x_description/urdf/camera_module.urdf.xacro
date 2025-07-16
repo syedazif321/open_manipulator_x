@@ -3,6 +3,7 @@
 
   <xacro:macro name="intel_d435_camera" params="prefix:='' parent_link:='link5'">
 
+
     <link name="${prefix}camera_link">
       <visual>
         <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
@@ -34,7 +35,21 @@
       <origin xyz="0.09 0.0 0.0325" rpy="0 0 0"/>
     </joint>
 
-    <!-- RGB Camera -->
+ 
+    <link name="${prefix}camera_depth_optical_frame"/>
+    <joint name="${prefix}camera_depth_optical_joint" type="fixed">
+      <parent link="${prefix}camera_link"/>
+      <child link="${prefix}camera_depth_optical_frame"/>
+      <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+    </joint>
+
+    <link name="${prefix}camera_rgb_optical_frame"/>
+    <joint name="${prefix}camera_rgb_optical_joint" type="fixed">
+      <parent link="${prefix}camera_link"/>
+      <child link="${prefix}camera_rgb_optical_frame"/>
+      <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+    </joint>
+
     <gazebo reference="${prefix}camera_link">
       <sensor name="d435_rgb" type="camera">
         <update_rate>30.0</update_rate>
@@ -57,12 +72,12 @@
           <camera_name>rgb</camera_name>
           <image_topic_name>image_raw</image_topic_name>
           <camera_info_topic_name>camera_info</camera_info_topic_name>
-          <frame_name>${prefix}camera_link</frame_name>
+          <frame_name>${prefix}camera_rgb_optical_frame</frame_name>
         </plugin>
       </sensor>
     </gazebo>
 
-    <!-- Infrared Cameras -->
+
     <gazebo reference="${prefix}camera_link">
       <sensor name="d435_infra1" type="camera">
         <update_rate>30.0</update_rate>
@@ -85,7 +100,7 @@
           <camera_name>infra1</camera_name>
           <image_topic_name>image_raw</image_topic_name>
           <camera_info_topic_name>camera_info</camera_info_topic_name>
-          <frame_name>${prefix}camera_link</frame_name>
+          <frame_name>${prefix}camera_depth_optical_frame</frame_name>
         </plugin>
       </sensor>
 
@@ -110,12 +125,11 @@
           <camera_name>infra2</camera_name>
           <image_topic_name>image_raw</image_topic_name>
           <camera_info_topic_name>camera_info</camera_info_topic_name>
-          <frame_name>${prefix}camera_link</frame_name>
+          <frame_name>${prefix}camera_depth_optical_frame</frame_name>
         </plugin>
       </sensor>
     </gazebo>
 
-    <!-- Depth and Point Cloud Combined -->
     <gazebo reference="${prefix}camera_link">
       <sensor name="d435_depth" type="depth">
         <update_rate>30.0</update_rate>
@@ -130,9 +144,6 @@
             <near>0.1</near>
             <far>10.0</far>
           </clip>
-          <depth_camera>
-            <output>depth_and_point_cloud</output> <!-- THIS IS IMPORTANT -->
-          </depth_camera>
         </camera>
 
         <plugin name="${prefix}d435_depth_plugin" filename="libgazebo_ros_camera.so">
@@ -142,7 +153,7 @@
           <camera_name>depth</camera_name>
           <image_topic_name>image_raw</image_topic_name>
           <camera_info_topic_name>camera_info</camera_info_topic_name>
-          <frame_name>${prefix}camera_link</frame_name>
+          <frame_name>${prefix}camera_depth_optical_frame</frame_name>
         </plugin>
 
         <plugin name="${prefix}d435_pointcloud_plugin" filename="libgazebo_ros_point_cloud.so">
@@ -150,7 +161,7 @@
             <namespace>${prefix}/d435</namespace>
           </ros>
           <topic_name>points</topic_name>
-          <frame_name>${prefix}camera_link</frame_name>
+          <frame_name>${prefix}camera_depth_optical_frame</frame_name>
         </plugin>
 
       </sensor>
