@@ -63,7 +63,7 @@ def generate_launch_description():
         [
             FindPackageShare('open_manipulator_x_bringup'),
             'worlds',
-            'empty_world.model'
+            'no_roof_small_warehouse.world'
         ]
     )
 
@@ -73,7 +73,7 @@ def generate_launch_description():
             'world': empty_world_path,
             'x_pose': '0.0',
             'y_pose': '0.0',
-            'z_pose': '0.0',
+            'z_pose': '0.791802',
             'roll': '0.0',
             'pitch': '0.0',
             'yaw': '0.0',
