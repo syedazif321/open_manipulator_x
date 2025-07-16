@@ -13,9 +13,7 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    # ------------------------------
-    # 🧩 Launch Arguments
-    # ------------------------------
+
     declared_arguments = [
         DeclareLaunchArgument('start_rviz', default_value='false', description='Whether to launch RViz2'),
         DeclareLaunchArgument('prefix', default_value='""', description='Prefix for joint names'),
@@ -25,9 +23,6 @@ def generate_launch_description():
         DeclareLaunchArgument('port_name', default_value='/dev/ttyUSB0', description='Serial port for hardware')
     ]
 
-    # ------------------------------
-    # 📦 LaunchConfigurations
-    # ------------------------------
     start_rviz = LaunchConfiguration('start_rviz')
     prefix = LaunchConfiguration('prefix')
     use_sim = LaunchConfiguration('use_sim')
@@ -35,9 +30,6 @@ def generate_launch_description():
     fake_sensor_commands = LaunchConfiguration('fake_sensor_commands')
     port_name = LaunchConfiguration('port_name')
 
-    # ------------------------------
-    # 🦴 xacro to robot_description
-    # ------------------------------
     description_pkg = 'open_manipulator_x_description'
     xacro_file = PathJoinSubstitution([
         FindPackageShare(description_pkg),
@@ -60,9 +52,6 @@ def generate_launch_description():
         )
     }
 
-    # ------------------------------
-    # 📁 Paths
-    # ------------------------------
     controller_manager_config = PathJoinSubstitution([
         FindPackageShare('open_manipulator_x_bringup'),
         'config',
@@ -74,10 +63,6 @@ def generate_launch_description():
         'rviz',
         'open_manipulator_x.rviz'
     ])
-
-    # ------------------------------
-    # 🚀 Nodes
-    # ------------------------------
     robot_state_pub_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -115,11 +100,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    # ❌ NO GRIPPER CONTROLLER (removed gripper from URDF)
-
-    # ------------------------------
-    # ⏱ Launch Sequencing
-    # ------------------------------
     delay_rviz = RegisterEventHandler(
         OnProcessExit(
             target_action=joint_state_broadcaster,
@@ -133,10 +113,6 @@ def generate_launch_description():
             on_exit=[arm_controller],
         )
     )
-
-    # ------------------------------
-    # 📦 LaunchDescription
-    # ------------------------------
     nodes = [
         robot_state_pub_node,
         control_node,
